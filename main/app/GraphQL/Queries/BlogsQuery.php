@@ -1,10 +1,11 @@
 <?php
 
 namespace App\GraphQL\Queries;
-use AppBlog;
+use App\Models\Blog;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
+use GraphQL\Types\BlogType;
 
 class BlogsQuery extends Query
 {
