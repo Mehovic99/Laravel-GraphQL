@@ -1,7 +1,7 @@
 <?php
 
 namespace App\GraphQL\Types;
-use App\Models\Blog;
+use App\Blog;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
@@ -10,7 +10,7 @@ class BlogType extends GraphQLType
     protected $attributes = [
         "name" => "Blog",
         "description" => "Collection of blog posts and their content",
-        "modle" => Blog::class,
+        "model" => Blog::class,
     ];
 
     public function fields(): array
