@@ -203,4 +203,91 @@ class Blog extends Model
 
 ## Creating a seeder
 
-Once you have the model of your choice, you need to create a seeder. In order to do that, you need to run a command in
+Once you have the model of your choice, you need to create a seeder. In order to do that, you need to run a command in the terminal. The command is:
+
+```
+php artisan make:seeder BlogSeeder
+```
+
+This will create the corresponding seeder php file inside of ***database/seeders*** inside of your laravel app. Since there are two methods with which to define fillable arguments inside of the model,
+there are two methods for filling in the requirements for the seeder.
+
+### Method 1: Manual input
+
+Inisde of the seeder you define what data you are going to have inside the database once you run that command. So if you rely on manual input inside the model, your seeder should look like this:
+
+```PHP
+<?php
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Blog;
+class BlogSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Blog::insert([
+            [
+                "title" => "This is title 1",
+                "content" => "Something something description 1",
+            ],
+            [
+                "title" => "This is title 2",
+                "content" => "Something something description 2",
+            ],
+            [
+                "title" => "This is title 3",
+                "content" => "Something something description 3",
+            ],
+            [
+                "title" => "This is title 4",
+                "content" => "Something something description 4",
+            ],
+            [
+                "title" => "This is title 5",
+                "content" => "Something something description 5",
+            ],
+            [
+                "title" => "This is title 6",
+                "content" => "Something something description 6",
+            ],
+        ]);
+    }
+}
+```
+
+### Method 2: Relying on model factory
+
+If you instead want randomly generated data based on the input from the factory, then you write your seeder in the following way:
+
+```PHP
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Blog;
+
+class BlogSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run()
+    {
+        Blog::factory()
+                ->count(5)
+                ->create();
+    }
+}
+
+```
+
+## Building factory (FOLLOW ONLY IF YOU USED METHOD 2 SO FAR ON MODEL AND SEEDER)
