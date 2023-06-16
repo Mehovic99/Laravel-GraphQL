@@ -476,4 +476,305 @@ Inside of the GraphQL folder, next to the Types folder, you are going to create 
 
 ### BlogQuery.php
 
-Inside of the BlogQuery you are going to define a function that will fetch
+Inside of the BlogQuery you are going to define a function that will fetch a table entry from the database based on the ID. The code is as follows:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Queries;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+use Rebing\GraphQL\Support\Query;
+
+class BlogQuery extends Query
+{
+    protected $attributes = [
+        "name" => "blog",
+    ];
+
+    public function type(): Type
+    {
+        return GraphQL::type("Blog");
+    }
+    
+    public function args(): array
+    {
+        return[
+            "id" => [
+                "name" => "id",
+                "type" => Type::int(),
+                "rules" => ["required"],
+            ],
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        return Blog::findOrFail($args["id"]);
+    }
+}
+```
+
+### BlogsQuery.php
+
+On the other hand, inside of the BlogsQuery.php you are going to define a function that will fetch all the entries from the table. The code is as follows:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Queries;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+use Rebing\GraphQL\Support\Query;
+use GraphQL\Types\BlogType;
+
+class BlogsQuery extends Query
+{
+    protected $attributes = [
+        "name" => "blogs",
+    ];
+
+    public function type(): Type
+    {
+        return Type::listOf(GraphQL::type("Blog"));
+    }
+
+    public function resolve($root, $args)
+    {
+        return Blog::all();
+    }
+}
+```
+
+## Mutations
+
+Mutations are functions that when run change the data inside of your database. These mutations are usually creation, deletion and updateing. For all mutations, you are going to create a folder inside of ***App/GraphQL*** called **Mutations**. Inside of this folder
+you need to create the following files:
+
+- CreateBlogMutation.php
+- DeleteBlogMutation.php
+- UpdateBlogMutation.php
+
+### CreateBlogMutation.php
+
+Inside of this file you are going to define a function that will take in arguments from the user based on the data and data type inside of the database. Secondly, you will define a second function that will resolve the inserted data
+and fill it inside of the database based on the Blog type. The complete code is going to look like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Mutations;
+use App\Models\Blog;
+use Rebing\GraphQL\Support\Mutation;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+
+class CreateBlogMutation extends Mutation
+{
+    protected $attributes = [
+        "name" => "createBlog",
+    ];
+
+    public function type(): Type
+    {
+        return GraphQL::type("Blog");
+    }
+    public function args(): array
+    {
+        return [
+            "title" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "title",
+            ],
+            "content" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "content",
+            ],
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        $blog = new Blog();
+        $blog -> fill($args);
+        $blog -> save();
+        return $blog;
+    }
+}
+```
+
+### DeleteBlogMutation.php
+
+Inside of this file you are going to define a function that will take in only one argument from the user. That argument is going to be the id number. Secondly, you are going to define a function that will determine whether the number that was input
+exists inside of the database based on the Blog type. If a Blog with that ID number exists, the return command of the function will return ture. On the other hand, if such Blog does not exist, then the return command will return false.
+The complete code should look like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Mutations;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Mutation;
+
+class DeleteBlogMutation extends Mutation
+{
+    protected $attributes = [
+        "name" => "deleteBlog",
+    ];
+
+    public function type(): Type
+    {
+        return Type::boolean();
+    }
+
+    public function args(): array
+    {
+        return [
+            "id" => [
+                "name" => "id",
+                "type" => Type::int(),
+                "rules" => ["required"],
+            ],
+        ];
+    }
+    public function resolve($root, $args)
+    {
+        $blog = Blog::findOrFail($args["id"]);
+        return $blog -> delete() ? true : false;
+    }
+}
+```
+
+### UpdateBlogMutation.php
+
+Inside of this file you are going to define a functions that will take in the user's input. Only unlike the creation mutation, here the user also inputs the id of the filed since the user wants
+to edit an existing field. Once that functions finishes, there will be a resolve function just like in the creation, except this time the function is not going to create a new entry
+based on the Blog type, but will actually check if the blog that matches the input id even exists inside of the database. The complete code will look like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Mutations;
+use App\Models\Blog;
+use Rebing\GraphQL\Support\Mutation;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+
+class UpdateBlogMutation extends Mutation
+{
+    protected $attributes = [
+        "name" => "updateBlog",
+    ];
+
+    public function type(): Type
+    {
+        return GraphQL::type("Blog");
+    }
+
+    public function args(): array
+    {
+        return [
+            "id" => [
+                "type" => Type::nonNull(Type::int()),
+                "name" => "id",
+            ],
+            "title" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "title",
+            ],
+            "content" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "content",
+            ],
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        $blog = Blog::findOrFail($args["id"]);
+        $blog -> fill($args);
+        $blog -> save();
+        return $blog;
+    }
+}
+```
+
+## Registering the Custom schema and type
+
+If you have made it to this point inside of the tutorial, you have create everything you need. However, you are not finished. If you were to ran this application now
+the application would not work since the custom types and queries have not been defined inside of the configuration. So what you need to do is open a config file that
+was copied over from the rebing/laravel-graphql library. The config file is located in ***App/Config*** folder and the file name is **graphql.php**. You will
+need to edit a few of the fields inside of this config in order for the application to work. What you need to edit is as follows:
+
+```PHP
+<?php
+
+return [
+...
+'schemas' => [
+        'default' => [
+            'query' => [
+                'blog' => App\GraphQL\Queries\BlogQuery::class,
+                'blogs' => App\GraphQL\Queries\BlogsQuery::class,
+                // ExampleQuery::class,
+            ],
+            'mutation' => [
+                'createBlog' => App\graphql\Mutations\CreateBlogMutation::class,
+                'updateBlog' => App\graphql\Mutations\UpdateBlogMutation::class,
+                'deleteBlog' => App\graphql\Mutations\DeleteBlogMutation::class,
+                // ExampleMutation::class,
+            ],
+            // The types only available in this schema
+            'types' => [
+                'Blog' => App\GraphQL\Types\BlogType::class,
+                // ExampleType::class,
+            ],
+
+            // Laravel HTTP middleware
+            'middleware' => null,
+
+            // Which HTTP methods to support; must be given in UPPERCASE!
+            'method' => ['GET', 'POST'],
+
+            // An array of middlewares, overrides the global ones
+            'execution_middleware' => null,
+        ],
+    ],
+
+    // The global types available to all schemas.
+    // You can then access it from the facade like this: GraphQL::type('user')
+    //
+    // Example:
+    //
+    // 'types' => [
+    //     App\GraphQL\Types\UserType::class
+    // ]
+    //
+    'types' => [
+        'Blog' => App\GraphQL\Types\BlogType::class,
+        // ExampleType::class,
+        // ExampleRelationType::class,
+        // \Rebing\GraphQL\Support\UploadType::class,
+    ],
+...
+```
+
+## BONUS TIP
+
+If you want to completely make sure that the application will run without worrying about anything, there are two things you can do:
+
+- run the command ```composer dump-autoload``` -> this command will comb through the app in search of classes and migrations that it did not include inside of the vendor
+  and it will properly update the vendor to include those files
+- make sure to user proper naming convention when adding the use line inside of the php files. This is important for the dump-autoload command line, since the line won't
+  run without proper naming. For example, if you called a class with 'use' inside of php, make sure that you call it exactly the same each time. Here are two samples, one correct and one incorrect:
+  - ✅ ``` use App\GraphQL\Blog ``` inside of all files
+  - ❌ ``` use App\GraphQL\Blog ``` in one and ``` use App\graphQL\blog ``` in another.
+
+## Run and test
+
+Once everything is done, run the command ``` php artisan serve ``` inside of the command line. Copy the url on which the Laravel app is running.
+Inside of Postman press CTRL + N on Windows/Linux and ⌘ + N on Mac. You will have a prompt that looks like this
+
