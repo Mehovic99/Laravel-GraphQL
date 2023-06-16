@@ -82,6 +82,7 @@ In the case that this does not occur, here are some of the most common errors th
 - Outdated composer --> Run composer update in order to update json dependencies in your project
 - Outdated PHP --> Make sure to update PHP through command line or EXE file
 
+## NOTE: From this moment onward in the tutorial, assume that every terminal command is being run inside of the project folder that you have created. In this example, that folder would be the "main" folder
 
 ## Installing GraphQL library
 
@@ -113,3 +114,49 @@ Publishing complete.
 ```
 
 ## Creating a Model
+
+A model in laravel is a way for the application to question the data from a table inside of a database. In other words, a model is used in order to handle the data that is being used by the application. In this example, I have created a Blog model, however you can replace the Blog with any other model type you want, for example a book, movie or comment model. It is up to you. In order to create a Blog model with its migrations, you need to initialize the following piece of code :
+
+```
+php artisan make:model Blog -m
+```
+
+Next, what you need to do is find the migration file of the model and edit it. The migrations are located inside of the ***database/migrations*** inside of your project folder. You need to edit the migration files as follows:
+
+```PHP
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        ## Here we have defined the schema of our data. We define the name of the data that is going to be inside the table as well as defining
+        ## the data type of each entry
+        Schema::create('blogs', function (Blueprint $table) {
+            $table->id();
+            $table->string("title");
+            $table->text("content");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        # This checks whether a table of the same name already exists. If it does, then the existing table is delted and replaced by the new schema defined in the migrations
+        Schema::dropIfExists('blogs');
+    }
+};
+
+```
+
+Here you define the data located in the table and the data type, for example string for the blog title.
