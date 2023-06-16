@@ -351,4 +351,129 @@ What this will do is open a unique Laravel CLI (Command Line Interface) that wil
 >>> \App\Models\Blog::factory()->create();
 ```
 
-This command basically tells the laravel to run the factory code in order to create one table value. If you have followed the procedure so far and there have not been any errors so far, you will get 
+This command basically tells the laravel to run the factory code in order to create one table value. If you have followed the procedure so far and there have not been any errors so far, you will get something that looks like this:
+
+```
+=> App\Models\Blog {#8845
+  title: "Klik.",
+  content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+  created_at: "2023-06-16 14:39:05",
+  updated_at: "2023-06-16 14:39:05",
+  id: 3,
+}
+```
+
+## Seeding the database
+
+Now before you run the command to seed the database, you first need to instance your custom seeder inside the class called **DatabaseSeeder.php** which is located inside of ***database/seeders*** inside of your main laravel app.
+What you need to do is as follows:
+
+```PHP
+<?php
+
+namespace Database\Seeders;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // \App\Models\User::factory(10)->create();
+        $this->call(BlogSeeder::class);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+    }
+}
+
+```
+
+What this will do is it will call the seeder once you start the seeding process from the terminal
+
+Now you need to edit your environment information. This information is located inside of the file called **.env**. If this file does not exist, you can simply create a blank filed called .env and copy information from **.env.example** file into your
+newly created .env file. Inside of the .env file you should edit the database section to look as follows:
+
+```
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_PORT=3306
+```
+
+If you notice, I have deleted the following sections from this code: DB_DATABASE=YOUR_DB_NAME, DB_USERNAME=YOUR_DB_USER and DB_PASSWORD=YOUR_DB_PASSWORD. The reason for which I have done this is because I watned for the code to run locally for testing purposes
+so that for future use I don't have to rely on apache servers or docker servers.
+
+In addition, you should create a file called ***database.sqlite*** inside of the database folder in your Laravel application
+
+In order to run the seeder, you need to input the following command inside of the terminal:
+
+```
+php artisan migrate --seed
+```
+
+This will fill out the sqlite file and now you have a working database.
+
+## Constructing GraphQL operations
+
+Now that you have the base of the application setup, you need to setup your GraphQL operations as well. These operations include:
+
+- Queries -> To get data from the database, GraphQL queries will be utilized, and the classes for that functionality will be written here.
+- Mutations -> Same as queries that fetch data, only these will allow for modification of present data
+- Types -> This will create objects that represent the types of data that can be accessed from the database
+
+## Types
+
+First we start with defining the type for a Blog model. This will be done inside a file that you create in the folder ***App/GraphQL/Types***. In the case that this folder does not exist, create it and once you do crate a file called ***BlogType.php***.
+Once you have the BlogType.php file you are going to edit it so that it looks like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Types;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphQLType;
+
+class BlogType extends GraphQLType
+{
+    protected $attributes = [
+        "name" => "Blog",
+        "description" => "Collection of blog posts and their content",
+        "model" => Blog::class,
+    ];
+
+    public function fields(): array
+    {
+        return [
+            "id" => [
+                "type" => Type::nonNull(Type::int()),
+                "description" => "Id of a specific blog post",
+            ],
+            "title" => [
+                "type" => Type::nonNull(Type::string()),
+                "description" => "Title of a specific blog post",
+            ],
+            "content" => [
+                "type" => Type::nonNull(Type::string()),
+                "description" => "Content of a specific blog post",
+            ],
+        ];
+    }
+}
+```
+
+Here you will instance the data you have and its type. You will also describe which model the type is based on and what the model does.
+
+## Queries
+
+Inside of the GraphQL folder, next to the Types folder, you are going to create another folder called ***Queries***. Inside the newly created Queries folder, you are going to create two files. One is going to be called
+***BlogQuery.php*** and the second one is going to be called ***BlogsQuery.php***.
+
+### BlogQuery.php
+
+Inside of the BlogQuery you are going to define a function that will fetch
