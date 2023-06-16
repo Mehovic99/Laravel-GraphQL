@@ -291,3 +291,64 @@ class BlogSeeder extends Seeder
 ```
 
 ## Building factory (FOLLOW ONLY IF YOU USED METHOD 2 SO FAR ON MODEL AND SEEDER)
+
+In order to create a factory inside of your laravel app you need to run the command:
+
+```
+php artisan make:factory BlogFactory --model=Blog
+```
+
+The ```--model``` command at the end defines what model the factory should be attached to. Once the factory is made, it will be located inside of ***database/factories*** folder. Once you open your factory folder, you should edit it to look like this:
+
+```PHP
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Blog;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blog>
+ */
+class BlogFactory extends Factory
+{
+    /**
+     * The name of the model the corresponding factory follows.
+     * 
+     *  @var string
+     */
+    protected $model = \App\Models\Blog::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->title,
+            'content' => $this->faker->paragraph,
+        ];
+    }
+}
+
+```
+
+### BONUS TIP
+
+If you want to make sure that the factory is made correctly and prevent any mishaps when running the seeder later, then you can enter the following command in the terminal:
+
+```
+php artisan tinker
+```
+
+What this will do is open a unique Laravel CLI (Command Line Interface) that will allow you to directly edit the application how you see fit or to test. In this case what you can do is enter the following code:
+
+```
+>>> \App\Models\Blog::factory()->create();
+```
+
+This command basically tells the laravel to run the factory code in order to create one table value. If you have followed the procedure so far and there have not been any errors so far, you will get 
