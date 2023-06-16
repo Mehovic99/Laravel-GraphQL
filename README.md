@@ -160,3 +160,47 @@ return new class extends Migration
 ```
 
 Here you define the data located in the table and the data type, for example string for the blog title.
+
+Once you have defined the data for the table in the migrations, there are two ways in which you can edit the Blog.php model file.
+
+### Method 1: Having dummy data from the very beginning
+
+If you want to have the same type of data each time you load the project, then you define the model as follows:
+
+```PHP
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Blog extends Model
+{
+    protected $fillable = ["title", "content"];
+}
+
+```
+
+### Method 2: Having randomly generated data each time
+
+However if you want data to be randomly generated each time that you freshly install the project, then you fill the method as follows:
+
+```PHP
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Blog extends Model
+{
+    #Command to connect the eloquent model to a factory for generating test data
+    use HasFactory;
+}
+```
+
+## Creating a seeder
+
+Once you have the model of your choice, you need to create a seeder. In order to do that, you need to run a command in
