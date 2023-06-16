@@ -48,10 +48,68 @@ There are a handful documents that can be used in case you get stuck on an error
 ### Setting up Laravel
 First of all, once you open your IDE of choice, you need to open a terminal inside of the project directory in order to create a laravel project. You can use the built in terminal that gets packaged with Visual Studio Code, however you can also use windows powershell, mac terminal or linux terminal. In the end the preference is yours. There are two ways with which you can initialize the laravel project.
 
-### Method 1: Globally initializing Laravel installer
+### Method 1: Globally installing Laravel
 In this method you call for composer to install laravel globally. Once Laravel is installed you can call Laravel in order to start a project. First off, install laravel globally and start a new project with the following commands:
 
 ```
 composer global require laravel/installer
 laravel new NAME-OF-APP
 ```
+
+### Method 2: Initializing laravel with composer
+In the case that the first command throws an error or that you do not want to have laravel globally installed on your machine, the second option is to create the project through composer immediately with the following code:
+
+```
+composer create-project laravel/laravel NAME-OF-APP
+```
+
+Either way that you choose, you test whether the application works by running a php commands inside the new folder that you have created. Here is how you do it:
+
+```
+cd NAME-OF-APP
+php artisan serve
+```
+
+If the program is working you should be able to see something that looks like this:
+
+```
+INFO Server running on [http://127.0.0.1:8000].
+
+Press Ctrl+C to stop the server
+```
+
+In the case that this does not occur, here are some of the most common errors that could pervent the server from running:
+- Outdated composer --> Run composer update in order to update json dependencies in your project
+- Outdated PHP --> Make sure to update PHP through command line or EXE file
+
+
+## Installing GraphQL library
+
+Since GraphQL is flexible and can be used by multiple programming languages, there are quite a few options when it comes to choosing a PHP library. Here is a short list of GraphQL libraries that you can find on the GraphQL website that are most commonly used:
+- webonyx/graphql-php
+- wp-graphql/wp-graphql
+- nuwave/lighthouse
+- rebing/graphql-laravel
+
+For this example I will be using the ***rebing/graphql-laravel*** library from github since its a direct clone of the GraphQL from Facebook and since its been adapted specifically to Laravel. In addition, it is constantly being updated.
+
+The way in which you initialize the library is as follows:
+
+```
+composer require rebing/graphql-laravel
+```
+
+After running that code and having fetched the library you have to then copy the configuration of the rebing/graphql-library to the vendor configuration inside of your project by running the command:
+
+```
+php artisan vendor:publish --provider="Rebing\GraphQL\GraphQLServiceProvider"
+```
+
+If the publish is successful, you are going to get the following response:
+
+```
+Copied File [/vendor/rebing/graphql-laravel/config/config.php] To [/config/graphql.php]
+Publishing complete.
+```
+
+## Creating a Model
