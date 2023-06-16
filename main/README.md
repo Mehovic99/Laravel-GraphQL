@@ -1,66 +1,790 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://user-images.githubusercontent.com/76923830/232968928-37ab729c-145a-428c-a190-75ffe2b67368.png"/>
 </p>
 
-## About Laravel
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# GraphQL API in Laravel || HulkApps Onboarding Document
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Introduction
+If you are reading this, greetings and welcome to the HulkApps team. We are happy to have you with us. In this document you will have access to a short tutorial on creating a simple GraphQL API for your Laravel project. Without further delays, lets begin by explaining what you will need to do and what tools have been used for creating this project so that you may follow along.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+First off, here is what you need to setup in order for this API to work:
+- Database factory
+- Database seeding
+- Database migrations
+- GraphQL queries
+- GraphQL schema
+- GrahpQL mutations
+- Laravel Dev Environment
+- Laravel GraphQL library
 
-## Learning Laravel
+## TOOLS USED:
+|Visual Studio Code|Composer|Postman|
+|:-:|:-:|:-:|
+|<img src="https://user-images.githubusercontent.com/76923830/232976599-f3664623-da87-4699-998e-428358c41f5c.png" width="100">|<img src="https://user-images.githubusercontent.com/76923830/232976813-8265b645-f407-4517-9169-b149d281c8b5.png" width="100">|<img src="https://user-images.githubusercontent.com/76923830/233024463-94e361e3-552c-4cf9-ae83-e15cbbde7af1.png" width="100">|
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## PROGRAMMING LANGUAGE:
+|PHP|
+|:-:|
+|<img src="https://user-images.githubusercontent.com/76923830/232976123-0b69e481-50bb-4407-94e2-9148ecbe3b2a.png" width="200">|
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## FRAMEWORK:
+|Laravel|
+|:-:|
+|<img src="https://user-images.githubusercontent.com/76923830/232974917-d376cc16-da7c-42d8-99df-acd777680b55.png" width="200">|
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Helpful documents
+There are a handful documents that can be used in case you get stuck on an error or need further explenation how something needs to be done. Here is a list of the few documents that have aided in the creation of this program:
+- Laravel documentation -> This documentation contains everything Laravel. You need a rundown on how to create a factory? You can find the tutorial here. You need an explenation on how seeders work? Laravel docs has you covered --> https://laravel.com/docs/10.x/readme
+- GraphQL learn -> This is the official website of GraphQL. It contains the information on different libraries that you can use for GraphQL in different languages, ranging from JavaScript to Ballerina --> https://graphql.org/learn/
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Getting started
 
-## Contributing
+### Setting up Laravel
+First of all, once you open your IDE of choice, you need to open a terminal inside of the project directory in order to create a laravel project. You can use the built in terminal that gets packaged with Visual Studio Code, however you can also use windows powershell, mac terminal or linux terminal. In the end the preference is yours. There are two ways with which you can initialize the laravel project.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Method 1: Globally installing Laravel
+In this method you call for composer to install laravel globally. Once Laravel is installed you can call Laravel in order to start a project. First off, install laravel globally and start a new project with the following commands:
 
-## Code of Conduct
+```
+composer global require laravel/installer
+laravel new NAME-OF-APP
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Method 2: Initializing laravel with composer
+In the case that the first command throws an error or that you do not want to have laravel globally installed on your machine, the second option is to create the project through composer immediately with the following code:
 
-## Security Vulnerabilities
+```
+composer create-project laravel/laravel NAME-OF-APP
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Either way that you choose, you test whether the application works by running a php commands inside the new folder that you have created. Here is how you do it:
 
-## License
+```
+cd NAME-OF-APP
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+If the program is working you should be able to see something that looks like this:
+
+```
+INFO Server running on [http://127.0.0.1:8000].
+
+Press Ctrl+C to stop the server
+```
+
+In the case that this does not occur, here are some of the most common errors that could pervent the server from running:
+- Outdated composer --> Run composer update in order to update json dependencies in your project
+- Outdated PHP --> Make sure to update PHP through command line or EXE file
+
+## NOTE: From this moment onward in the tutorial, assume that every terminal command is being run inside of the project folder that you have created. In this example, that folder would be the "main" folder
+
+## Installing GraphQL library
+
+Since GraphQL is flexible and can be used by multiple programming languages, there are quite a few options when it comes to choosing a PHP library. Here is a short list of GraphQL libraries that you can find on the GraphQL website that are most commonly used:
+- webonyx/graphql-php
+- wp-graphql/wp-graphql
+- nuwave/lighthouse
+- rebing/graphql-laravel
+
+For this example I will be using the ***rebing/graphql-laravel*** library from github since its a direct clone of the GraphQL from Facebook and since its been adapted specifically to Laravel. In addition, it is constantly being updated.
+
+The way in which you initialize the library is as follows:
+
+```
+composer require rebing/graphql-laravel
+```
+
+After running that code and having fetched the library you have to then copy the configuration of the rebing/graphql-library to the vendor configuration inside of your project by running the command:
+
+```
+php artisan vendor:publish --provider="Rebing\GraphQL\GraphQLServiceProvider"
+```
+
+If the publish is successful, you are going to get the following response:
+
+```
+Copied File [/vendor/rebing/graphql-laravel/config/config.php] To [/config/graphql.php]
+Publishing complete.
+```
+
+## Creating a Model
+
+A model in laravel is a way for the application to question the data from a table inside of a database. In other words, a model is used in order to handle the data that is being used by the application. In this example, I have created a Blog model, however you can replace the Blog with any other model type you want, for example a book, movie or comment model. It is up to you. In order to create a Blog model with its migrations, you need to initialize the following piece of code :
+
+```
+php artisan make:model Blog -m
+```
+
+Next, what you need to do is find the migration file of the model and edit it. The migrations are located inside of the ***database/migrations*** inside of your project folder. You need to edit the migration files as follows:
+
+```PHP
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        ## Here we have defined the schema of our data. We define the name of the data that is going to be inside the table as well as defining
+        ## the data type of each entry
+        Schema::create('blogs', function (Blueprint $table) {
+            $table->id();
+            $table->string("title");
+            $table->text("content");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        # This checks whether a table of the same name already exists. If it does, then the existing table is delted and replaced by the new schema defined in the migrations
+        Schema::dropIfExists('blogs');
+    }
+};
+
+```
+
+Here you define the data located in the table and the data type, for example string for the blog title.
+
+Once you have defined the data for the table in the migrations, there are two ways in which you can edit the Blog.php model file.
+
+### Method 1: Having dummy data from the very beginning
+
+If you want to have the same type of data each time you load the project, then you define the model as follows:
+
+```PHP
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Blog extends Model
+{
+    protected $fillable = ["title", "content"];
+}
+
+```
+
+### Method 2: Having randomly generated data each time
+
+However if you want data to be randomly generated each time that you freshly install the project, then you fill the method as follows:
+
+```PHP
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Blog extends Model
+{
+    #Command to connect the eloquent model to a factory for generating test data
+    use HasFactory;
+}
+```
+
+## Creating a seeder
+
+Once you have the model of your choice, you need to create a seeder. In order to do that, you need to run a command in the terminal. The command is:
+
+```
+php artisan make:seeder BlogSeeder
+```
+
+This will create the corresponding seeder php file inside of ***database/seeders*** inside of your laravel app. Since there are two methods with which to define fillable arguments inside of the model,
+there are two methods for filling in the requirements for the seeder.
+
+### Method 1: Manual input
+
+Inisde of the seeder you define what data you are going to have inside the database once you run that command. So if you rely on manual input inside the model, your seeder should look like this:
+
+```PHP
+<?php
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Blog;
+class BlogSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Blog::insert([
+            [
+                "title" => "This is title 1",
+                "content" => "Something something description 1",
+            ],
+            [
+                "title" => "This is title 2",
+                "content" => "Something something description 2",
+            ],
+            [
+                "title" => "This is title 3",
+                "content" => "Something something description 3",
+            ],
+            [
+                "title" => "This is title 4",
+                "content" => "Something something description 4",
+            ],
+            [
+                "title" => "This is title 5",
+                "content" => "Something something description 5",
+            ],
+            [
+                "title" => "This is title 6",
+                "content" => "Something something description 6",
+            ],
+        ]);
+    }
+}
+```
+
+### Method 2: Relying on model factory
+
+If you instead want randomly generated data based on the input from the factory, then you write your seeder in the following way:
+
+```PHP
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Blog;
+
+class BlogSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run()
+    {
+        Blog::factory()
+                ->count(5)
+                ->create();
+    }
+}
+
+```
+
+## Building factory (FOLLOW ONLY IF YOU USED METHOD 2 SO FAR ON MODEL AND SEEDER)
+
+In order to create a factory inside of your laravel app you need to run the command:
+
+```
+php artisan make:factory BlogFactory --model=Blog
+```
+
+The ```--model``` command at the end defines what model the factory should be attached to. Once the factory is made, it will be located inside of ***database/factories*** folder. Once you open your factory folder, you should edit it to look like this:
+
+```PHP
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Blog;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blog>
+ */
+class BlogFactory extends Factory
+{
+    /**
+     * The name of the model the corresponding factory follows.
+     * 
+     *  @var string
+     */
+    protected $model = \App\Models\Blog::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->title,
+            'content' => $this->faker->paragraph,
+        ];
+    }
+}
+
+```
+
+### BONUS TIP
+
+If you want to make sure that the factory is made correctly and prevent any mishaps when running the seeder later, then you can enter the following command in the terminal:
+
+```
+php artisan tinker
+```
+
+What this will do is open a unique Laravel CLI (Command Line Interface) that will allow you to directly edit the application how you see fit or to test. In this case what you can do is enter the following code:
+
+```
+>>> \App\Models\Blog::factory()->create();
+```
+
+This command basically tells the laravel to run the factory code in order to create one table value. If you have followed the procedure so far and there have not been any errors so far, you will get something that looks like this:
+
+```
+=> App\Models\Blog {#8845
+  title: "Klik.",
+  content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+  created_at: "2023-06-16 14:39:05",
+  updated_at: "2023-06-16 14:39:05",
+  id: 3,
+}
+```
+
+## Seeding the database
+
+Now before you run the command to seed the database, you first need to instance your custom seeder inside the class called **DatabaseSeeder.php** which is located inside of ***database/seeders*** inside of your main laravel app.
+What you need to do is as follows:
+
+```PHP
+<?php
+
+namespace Database\Seeders;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // \App\Models\User::factory(10)->create();
+        $this->call(BlogSeeder::class);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+    }
+}
+
+```
+
+What this will do is it will call the seeder once you start the seeding process from the terminal
+
+Now you need to edit your environment information. This information is located inside of the file called **.env**. If this file does not exist, you can simply create a blank filed called .env and copy information from **.env.example** file into your
+newly created .env file. Inside of the .env file you should edit the database section to look as follows:
+
+```
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_PORT=3306
+```
+
+If you notice, I have deleted the following sections from this code: DB_DATABASE=YOUR_DB_NAME, DB_USERNAME=YOUR_DB_USER and DB_PASSWORD=YOUR_DB_PASSWORD. The reason for which I have done this is because I watned for the code to run locally for testing purposes
+so that for future use I don't have to rely on apache servers or docker servers.
+
+In addition, you should create a file called ***database.sqlite*** inside of the database folder in your Laravel application
+
+In order to run the seeder, you need to input the following command inside of the terminal:
+
+```
+php artisan migrate --seed
+```
+
+This will fill out the sqlite file and now you have a working database.
+
+## Constructing GraphQL operations
+
+Now that you have the base of the application setup, you need to setup your GraphQL operations as well. These operations include:
+
+- Queries -> To get data from the database, GraphQL queries will be utilized, and the classes for that functionality will be written here.
+- Mutations -> Same as queries that fetch data, only these will allow for modification of present data
+- Types -> This will create objects that represent the types of data that can be accessed from the database
+
+## Types
+
+First we start with defining the type for a Blog model. This will be done inside a file that you create in the folder ***App/GraphQL/Types***. In the case that this folder does not exist, create it and once you do crate a file called ***BlogType.php***.
+Once you have the BlogType.php file you are going to edit it so that it looks like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Types;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphQLType;
+
+class BlogType extends GraphQLType
+{
+    protected $attributes = [
+        "name" => "Blog",
+        "description" => "Collection of blog posts and their content",
+        "model" => Blog::class,
+    ];
+
+    public function fields(): array
+    {
+        return [
+            "id" => [
+                "type" => Type::nonNull(Type::int()),
+                "description" => "Id of a specific blog post",
+            ],
+            "title" => [
+                "type" => Type::nonNull(Type::string()),
+                "description" => "Title of a specific blog post",
+            ],
+            "content" => [
+                "type" => Type::nonNull(Type::string()),
+                "description" => "Content of a specific blog post",
+            ],
+        ];
+    }
+}
+```
+
+Here you will instance the data you have and its type. You will also describe which model the type is based on and what the model does.
+
+## Queries
+
+Inside of the GraphQL folder, next to the Types folder, you are going to create another folder called ***Queries***. Inside the newly created Queries folder, you are going to create two files. One is going to be called
+***BlogQuery.php*** and the second one is going to be called ***BlogsQuery.php***.
+
+### BlogQuery.php
+
+Inside of the BlogQuery you are going to define a function that will fetch a table entry from the database based on the ID. The code is as follows:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Queries;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+use Rebing\GraphQL\Support\Query;
+
+class BlogQuery extends Query
+{
+    protected $attributes = [
+        "name" => "blog",
+    ];
+
+    public function type(): Type
+    {
+        return GraphQL::type("Blog");
+    }
+    
+    public function args(): array
+    {
+        return[
+            "id" => [
+                "name" => "id",
+                "type" => Type::int(),
+                "rules" => ["required"],
+            ],
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        return Blog::findOrFail($args["id"]);
+    }
+}
+```
+
+### BlogsQuery.php
+
+On the other hand, inside of the BlogsQuery.php you are going to define a function that will fetch all the entries from the table. The code is as follows:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Queries;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+use Rebing\GraphQL\Support\Query;
+use GraphQL\Types\BlogType;
+
+class BlogsQuery extends Query
+{
+    protected $attributes = [
+        "name" => "blogs",
+    ];
+
+    public function type(): Type
+    {
+        return Type::listOf(GraphQL::type("Blog"));
+    }
+
+    public function resolve($root, $args)
+    {
+        return Blog::all();
+    }
+}
+```
+
+## Mutations
+
+Mutations are functions that when run change the data inside of your database. These mutations are usually creation, deletion and updateing. For all mutations, you are going to create a folder inside of ***App/GraphQL*** called **Mutations**. Inside of this folder
+you need to create the following files:
+
+- CreateBlogMutation.php
+- DeleteBlogMutation.php
+- UpdateBlogMutation.php
+
+### CreateBlogMutation.php
+
+Inside of this file you are going to define a function that will take in arguments from the user based on the data and data type inside of the database. Secondly, you will define a second function that will resolve the inserted data
+and fill it inside of the database based on the Blog type. The complete code is going to look like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Mutations;
+use App\Models\Blog;
+use Rebing\GraphQL\Support\Mutation;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+
+class CreateBlogMutation extends Mutation
+{
+    protected $attributes = [
+        "name" => "createBlog",
+    ];
+
+    public function type(): Type
+    {
+        return GraphQL::type("Blog");
+    }
+    public function args(): array
+    {
+        return [
+            "title" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "title",
+            ],
+            "content" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "content",
+            ],
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        $blog = new Blog();
+        $blog -> fill($args);
+        $blog -> save();
+        return $blog;
+    }
+}
+```
+
+### DeleteBlogMutation.php
+
+Inside of this file you are going to define a function that will take in only one argument from the user. That argument is going to be the id number. Secondly, you are going to define a function that will determine whether the number that was input
+exists inside of the database based on the Blog type. If a Blog with that ID number exists, the return command of the function will return ture. On the other hand, if such Blog does not exist, then the return command will return false.
+The complete code should look like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Mutations;
+use App\Models\Blog;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Mutation;
+
+class DeleteBlogMutation extends Mutation
+{
+    protected $attributes = [
+        "name" => "deleteBlog",
+    ];
+
+    public function type(): Type
+    {
+        return Type::boolean();
+    }
+
+    public function args(): array
+    {
+        return [
+            "id" => [
+                "name" => "id",
+                "type" => Type::int(),
+                "rules" => ["required"],
+            ],
+        ];
+    }
+    public function resolve($root, $args)
+    {
+        $blog = Blog::findOrFail($args["id"]);
+        return $blog -> delete() ? true : false;
+    }
+}
+```
+
+### UpdateBlogMutation.php
+
+Inside of this file you are going to define a functions that will take in the user's input. Only unlike the creation mutation, here the user also inputs the id of the filed since the user wants
+to edit an existing field. Once that functions finishes, there will be a resolve function just like in the creation, except this time the function is not going to create a new entry
+based on the Blog type, but will actually check if the blog that matches the input id even exists inside of the database. The complete code will look like this:
+
+```PHP
+<?php
+
+namespace App\GraphQL\Mutations;
+use App\Models\Blog;
+use Rebing\GraphQL\Support\Mutation;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
+
+class UpdateBlogMutation extends Mutation
+{
+    protected $attributes = [
+        "name" => "updateBlog",
+    ];
+
+    public function type(): Type
+    {
+        return GraphQL::type("Blog");
+    }
+
+    public function args(): array
+    {
+        return [
+            "id" => [
+                "type" => Type::nonNull(Type::int()),
+                "name" => "id",
+            ],
+            "title" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "title",
+            ],
+            "content" => [
+                "type" => Type::nonNull(Type::string()),
+                "name" => "content",
+            ],
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        $blog = Blog::findOrFail($args["id"]);
+        $blog -> fill($args);
+        $blog -> save();
+        return $blog;
+    }
+}
+```
+
+## Registering the Custom schema and type
+
+If you have made it to this point inside of the tutorial, you have create everything you need. However, you are not finished. If you were to ran this application now
+the application would not work since the custom types and queries have not been defined inside of the configuration. So what you need to do is open a config file that
+was copied over from the rebing/laravel-graphql library. The config file is located in ***App/Config*** folder and the file name is **graphql.php**. You will
+need to edit a few of the fields inside of this config in order for the application to work. What you need to edit is as follows:
+
+```PHP
+<?php
+
+return [
+...
+'schemas' => [
+        'default' => [
+            'query' => [
+                'blog' => App\GraphQL\Queries\BlogQuery::class,
+                'blogs' => App\GraphQL\Queries\BlogsQuery::class,
+                // ExampleQuery::class,
+            ],
+            'mutation' => [
+                'createBlog' => App\graphql\Mutations\CreateBlogMutation::class,
+                'updateBlog' => App\graphql\Mutations\UpdateBlogMutation::class,
+                'deleteBlog' => App\graphql\Mutations\DeleteBlogMutation::class,
+                // ExampleMutation::class,
+            ],
+            // The types only available in this schema
+            'types' => [
+                'Blog' => App\GraphQL\Types\BlogType::class,
+                // ExampleType::class,
+            ],
+
+            // Laravel HTTP middleware
+            'middleware' => null,
+
+            // Which HTTP methods to support; must be given in UPPERCASE!
+            'method' => ['GET', 'POST'],
+
+            // An array of middlewares, overrides the global ones
+            'execution_middleware' => null,
+        ],
+    ],
+
+    // The global types available to all schemas.
+    // You can then access it from the facade like this: GraphQL::type('user')
+    //
+    // Example:
+    //
+    // 'types' => [
+    //     App\GraphQL\Types\UserType::class
+    // ]
+    //
+    'types' => [
+        'Blog' => App\GraphQL\Types\BlogType::class,
+        // ExampleType::class,
+        // ExampleRelationType::class,
+        // \Rebing\GraphQL\Support\UploadType::class,
+    ],
+...
+```
+
+## BONUS TIP
+
+If you want to completely make sure that the application will run without worrying about anything, there are two things you can do:
+
+- run the command ```composer dump-autoload``` -> this command will comb through the app in search of classes and migrations that it did not include inside of the vendor
+  and it will properly update the vendor to include those files
+- make sure to user proper naming convention when adding the use line inside of the php files. This is important for the dump-autoload command line, since the line won't
+  run without proper naming. For example, if you called a class with 'use' inside of php, make sure that you call it exactly the same each time. Here are two samples, one correct and one incorrect:
+  - ✅ ``` use App\GraphQL\Blog ``` inside of all files
+  - ❌ ``` use App\GraphQL\Blog ``` in one and ``` use App\graphQL\blog ``` in another.
+
+## Run and test
+
+Once everything is done, run the command ``` php artisan serve ``` inside of the command line. Copy the url on which the Laravel app is running.
+Inside of Postman press CTRL + N on Windows/Linux and ⌘ + N on Mac. You will have a prompt that looks like this
+
+![Screenshot 2023-06-16 at 15 38 25](https://github.com/Mehovic99/Laravel-GraphQL/assets/76923830/36491ae8-f91e-4fe8-aabb-cbbd57c4e8d8)
+
+Select GraphQL and insert the URL inside of the new request however at the end of the url add a **/graphql**. If everything
+is done correctly, you are going to get a window that looks like this:
+
+![Screenshot 2023-06-16 at 15 41 57](https://github.com/Mehovic99/Laravel-GraphQL/assets/76923830/6655a330-ac99-40bf-980d-a36c95dfb8d9)
+
+
+# THE END THANK YOU FOR FOLLOWING AND AGAIN, WELCOME TO OUR TEAM
+# MADE BY: Anes Mehovic || Junior PHP Developer @HulkApps
