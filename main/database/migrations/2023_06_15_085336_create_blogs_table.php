@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up()
     {
+        ## Here we have defined the schema of our data. We define the name of the data that is going to be inside the table as well as defining
+        ## the data type of each entry
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string("title");
@@ -24,6 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        # This checks whether a table of the same name already exists. If it does, the existing table is deleted and replaced by the new schema defined in the migrations.
         Schema::dropIfExists('blogs');
     }
 };
