@@ -783,3 +783,8 @@ Inside of Postman press CTRL + N on Windows/Linux and ⌘ + N on Mac. You will h
 Select GraphQL and insert the URL inside of the new request however at the end of the url add a **/graphql**. If everything
 is done correctly, you are going to get a window that looks like this:
 
+![Screenshot 2023-06-16 at 15 41 57](https://github.com/Mehovic99/Laravel-GraphQL/assets/76923830/6655a330-ac99-40bf-980d-a36c95dfb8d9)
+
+
+# THE END THANK YOU FOR FOLLOWING AND AGAIN, WELCOME TO OUR TEAM
+# MADE BY: Anes Mehovic || Junior PHP Developer @HulkApps
