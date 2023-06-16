@@ -778,3 +778,8 @@ If you want to completely make sure that the application will run without worryi
 Once everything is done, run the command ``` php artisan serve ``` inside of the command line. Copy the url on which the Laravel app is running.
 Inside of Postman press CTRL + N on Windows/Linux and ⌘ + N on Mac. You will have a prompt that looks like this
 
+![Screenshot 2023-06-16 at 15 38 25](https://github.com/Mehovic99/Laravel-GraphQL/assets/76923830/36491ae8-f91e-4fe8-aabb-cbbd57c4e8d8)
+
+Select GraphQL and insert the URL inside of the new request however at the end of the url add a **/graphql**. If everything
+is done correctly, you are going to get a window that looks like this:
+
