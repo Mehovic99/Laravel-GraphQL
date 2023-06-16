@@ -75,13 +75,19 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
+                'blog' => App\GraphQL\Queries\BlogQuery::class,
+                'blogs' => App\GraphQL\Queries\BlogsQuery::class,
                 // ExampleQuery::class,
             ],
             'mutation' => [
+                'createBlog' => App\graphql\Mutations\CreateBlogMutation::class,
+                'updateBlog' => App\graphql\Mutations\UpdateBlogMutation::class,
+                'deleteBlog' => App\graphql\Mutations\DeleteBlogMutation::class,
                 // ExampleMutation::class,
             ],
             // The types only available in this schema
             'types' => [
+                'Blog' => App\GraphQL\Types\BlogType::class,
                 // ExampleType::class,
             ],
 
@@ -106,6 +112,7 @@ return [
     // ]
     //
     'types' => [
+        'Blog' => App\GraphQL\Types\BlogType::class,
         // ExampleType::class,
         // ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
