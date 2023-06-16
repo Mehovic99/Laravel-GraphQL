@@ -35,3 +35,10 @@ First off, here is what you need to setup in order for this API to work:
 |Laravel|
 |:-:|
 |<img src="https://user-images.githubusercontent.com/76923830/232974917-d376cc16-da7c-42d8-99df-acd777680b55.png" width="200">|
+
+
+## Helpful documents
+There are a handful documents that can be used in case you get stuck on an error or need further explenation how something needs to be done. Here is a list of the few documents that have aided in the creation of this program:
+- Laravel documentation -> This documentation contains everything Laravel. You need a rundown on how to create a factory? You can find the tutorial here. You need an explenation on how seeders work? Laravel docs has you covered --> https://laravel.com/docs/10.x/readme
+- GraphQL learn -> This is the official website of GraphQL. It contains the information on different libraries that you can use for GraphQL in different languages, ranging from JavaScript to Ballerina --> https://graphql.org/learn/
+
